@@ -100,14 +100,30 @@ class Panel {
         this.parent_container.empty()
     }
 
-    render_entity(entity) {
+    get_entity_icon(entity) {
         let icon = this.default_icon;
-        let type = entity.entity_id.split(".")[0];
 
-        if(entity.attributes.icon) {
-            icon = entity.attributes.icon.split(":")[1]
+        if (entity.attributes.icon) {
+            icon = entity.attributes.icon.split(':')[1]
+        } else if (entity.entity_id.startsWith('switch.')) {
+            icon = 'toggle-switch-off';
+            if ( this.is_true(entity.state) ) {
+                icon = 'toggle-switch';
+            }
+        } else if (entity.entity_id.startsWith('light.')) {
+            icon = 'lightbulb';
+            if ( this.is_true(entity.state) ) {
+                icon = 'lightbulb-on';
+            }
         }
 
+        return icon;
+    }
+
+    render_entity(entity) {
+        let type = entity.entity_id.split(".")[0];
+
+        let icon = this.get_entity_icon(entity);
         let tile = $('<div class="tile"></div>');
         tile.addClass(type);
         tile.attr("data-entity-id", entity.entity_id);

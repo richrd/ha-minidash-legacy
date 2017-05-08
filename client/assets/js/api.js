@@ -80,10 +80,12 @@ class HassAPI {
      **************************************************************************/
 
      async turn_on(entity_id) {
-         return this.request('services/switch/turn_on', {'entity_id': entity_id})
+         const service = entity_id.split('.')[0];
+         return this.request('services/' + service + '/turn_on', {'entity_id': entity_id})
      }
 
      async turn_off(entity_id) {
-         return this.request('services/switch/turn_off', {'entity_id': entity_id})
+         const service = entity_id.split('.')[0];
+         return this.request('services/' + service + '/turn_off', {'entity_id': entity_id})
      }
 }

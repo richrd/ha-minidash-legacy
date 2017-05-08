@@ -46,7 +46,10 @@ class Panel {
      **************************************************************************/
 
     async on_entity_clicked(entity) {
-        if(entity.entity_id.startsWith('switch')) {
+        if(
+            entity.entity_id.startsWith('switch.') ||
+            entity.entity_id.startsWith('light.')
+        ) {
             await this.on_switch_clicked(entity);
         }
     }
@@ -58,7 +61,6 @@ class Panel {
         } else {
             return this.api.turn_on(entity.entity_id);
         }
-    
     }
 
     on_event(event) {

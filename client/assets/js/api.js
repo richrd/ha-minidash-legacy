@@ -9,17 +9,29 @@ class HassAPI {
     }
 
     start_websocket() {
+        console.log("Connecting to websocket...");
         let url = "ws://" + this.base_url.split("://")[1] + "websocket";
         this.sock = new WebSocket(url);
         this.sock.onmessage = (event) => this.on_event(event);
-        // Subscribe to all events
+
+        // Automatically reconnect
+        this.sock.onclose = (evt) => {
+            console.log("Socket closed.", evt);
+            console.log("CloseEvent.code:", CloseEvent.code);
+            console.log("CloseEvent.reason:", CloseEvent.reason);
+            setTimeout(() => this.start_websocket(), 1000);
+        }
+
+        // Subscribe to all Home Assistant events
         this.sock.onopen = (evt) => {
+            console.log("websocket connected");
             let subscr = {
                 "id": 18,
                 "type": "subscribe_events",
             }
             this.sock.send(JSON.stringify(subscr));
         }
+
     }
 
     on_event(event) {

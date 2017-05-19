@@ -18,6 +18,7 @@ class Chart {
             width: $('.modal .body #chart').width(),
             height: 250,
         }
+
         if(entity.entity_id.startsWith('binary_sensor.')) {
             chartOptions.interpolation = 'step';
         }
@@ -31,6 +32,9 @@ class Chart {
                 state = 0;
             }
             state = parseFloat(state);
+            if (isNaN(state)) {
+                continue;
+            }
             let dateTime = Date.parse(item.last_updated);
             let dataPoint = {
                 x: dateTime,

@@ -1,7 +1,16 @@
-
+/** Globals */
 * {
     box-sizing: border-box;
 }
+
+button {
+    display: inline-block;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/** Basics */
 body,html {
     margin:0;
     padding:0;
@@ -13,10 +22,11 @@ body,html {
     height: 100%;
 }
 #main {
-    height: 100%;
     text-align: center;
 }
 
+
+/** Tiles */
 .tiles {
     height: 100%;
     margin: 0 auto;
@@ -95,3 +105,86 @@ body,html {
     }
 
 }
+
+
+/** Modal **/
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity ease-in-out .3s;
+    display: flex;
+    flex-direction: column;
+}
+.modal.show {
+    pointer-events: all;
+    opacity: 1;
+    transition: opacity ease-in-out .3s;
+}
+.modal .header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid #333;
+}
+.modal .header .header-text {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.2em;
+}
+.modal .header:before {
+    content: "";
+    width: 50px;
+}
+.modal .header button.close {
+    width: 50px;
+    color: #666;
+}
+.modal .body {
+    padding: 1em .6em;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+
+
+/** Chart */
+#chart-container {
+    display: inline-block;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+}
+#chart {
+    margin-left: 40px;
+}
+#y_axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+}
+#chart-container #y_axis .tick text {
+    fill: #fff;
+}
+#chart-container .rickshaw_graph .x_grid_d3 .tick text,
+#chart-container .rickshaw_graph .x_ticks_d3.plain .tick text {
+    fill: #000;
+    text-anchor: start !important;
+    transform: rotate(-90deg) translateX(10px);
+}
+#chart-container .rickshaw_graph .x_grid_d3 .tick text {
+    fill: #000;
+}
+#chart-container .rickshaw_graph .x_label {
+    display: none;
+}
+
+
+

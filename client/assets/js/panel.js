@@ -1,8 +1,10 @@
 "use strict";
 
 class Panel {
-    constructor(api, group, selector) {
+    constructor(api, modal, chart, group, selector) {
         this.api = api;
+        this.modal = modal;
+        this.chart = chart;
         this.group_name = group;
         this.default_icon = "checkbox-blank";
         this.group = {};
@@ -51,6 +53,17 @@ class Panel {
             entity.entity_id.startsWith('light.')
         ) {
             await this.on_switch_clicked(entity);
+        } else {
+            this.chart.clear();
+            let title = entity.attributes.friendly_name + ': ' + entity.state;
+            if(entity.attributes.unit_of_measurement) {
+                title += ' ' + entity.attributes.unit_of_measurement;
+            }
+            let lastMeasurement = new Date(entity.last_changed).toLocaleDateString() + ' ' + new Date(entity.last_changed).toLocaleTimeString();
+            $('.modal .info').text('Latest measurement: ' + lastMeasurement);
+            this.modal.set_title(title);
+            this.modal.show();
+            this.chart.create(entity);
         }
     }
 

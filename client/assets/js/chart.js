@@ -79,7 +79,7 @@ class Chart {
                 }
                 var date = '<span class="date">' + new Date(x).toLocaleDateString() + ' ' + new Date(x).toLocaleTimeString() + '</span>';
                 var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + '"></span>';
-                var content = swatch + series.name + ": " + parseInt(y) + ' ' + unit + '<br>' + date;
+                var content = swatch + series.name + ": " + y + ' ' + unit + '<br>' + date;
                 return content;
             }
         });

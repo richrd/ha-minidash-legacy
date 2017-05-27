@@ -1,0 +1,105 @@
+/** Globals */
+* {
+    box-sizing: border-box;
+}
+
+/** Basics */
+body,html {
+  margin:0;
+  padding:0;
+  color: #FFFFFE;
+  background-color: #222222;
+
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  height: 100%;
+}
+#root {
+  text-align: center;
+}
+
+
+/** Tiles */
+.tiles {
+  height: 100%;
+  margin: 0 auto;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-around;
+  padding: .3em;
+}
+
+.tiles .tile {
+  margin: .3em;
+  vertical-align: top;
+  background-color: #444444;
+  
+  width: 6.2rem;
+  height: 6.2rem;
+  padding: .2em;
+
+  text-align: center;
+  cursor: pointer;
+
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiles .tile-label {
+    font-size: .9rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.tiles .tile-content {
+    padding: 1em 0;
+    color: #00A6E9;
+    overflow-y: hidden;
+}
+.tiles .tile-icon {
+    display: none;
+    font-size: 3rem;
+    color: #888888;
+}
+.tiles .tile[data-state='on'] .tile-icon {
+    color: #AAFF00;
+}
+.tiles .tile.switch .tile-icon,
+.tiles .tile.binary_sensor .tile-icon {
+  display: inline-block;
+}
+.tiles .tile.switch .tile-content,
+.tiles .tile.binary_sensor .tile-content {
+  display: none;
+}
+.tiles .tile-content .tile-value,
+.tiles .tile-content .tile-unit {
+    display: inline-block;
+    vertical-align: middle;
+}
+.tiles .tile-content .tile-value {
+    font-size: 2em;
+}
+.tiles .tile-content .tile-unit {
+    vertical-align: top;
+}
+
+
+@media screen and (min-width: 700px) {
+    .tiles .tile {
+        width: 8rem;
+        height: 8rem;
+    }
+    .tiles .tile-icon {
+        font-size: 4rem;
+    }
+    .tiles .tile-content .tile-value {
+        font-size: 2.5em;
+    }
+
+}

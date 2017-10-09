@@ -34,10 +34,10 @@ body,html {
   margin: .3em;
   vertical-align: top;
   background-color: #444444;
-  
+
   width: 6.2rem;
   height: 6.2rem;
-  padding: .2em;
+  padding: .4em .2em;
 
   text-align: center;
   cursor: pointer;
@@ -49,6 +49,16 @@ body,html {
   justify-content: center;
 }
 
+.tiles .spacer-tile {
+  width: 6.2rem;
+  height: 0;
+  margin: .3em;
+  padding: .4em .2em;
+  display: flex;
+  flex-grow: 1;
+  display: none;
+}
+
 .tiles .tile-label {
     font-size: .9rem;
     max-width: 100%;
@@ -57,25 +67,24 @@ body,html {
     text-overflow: ellipsis;
 }
 .tiles .tile-content {
-    padding: 1em 0;
     color: #00A6E9;
     overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    flex-grow: 7;
 }
+
 .tiles .tile-icon {
-    display: none;
+    display: inline-block;
     font-size: 3rem;
     color: #888888;
+    display: flex;
+    align-items: center;
+    flex-grow: 7;
+
 }
 .tiles .tile[data-state='on'] .tile-icon {
     color: #AAFF00;
-}
-.tiles .tile.switch .tile-icon,
-.tiles .tile.binary_sensor .tile-icon {
-  display: inline-block;
-}
-.tiles .tile.switch .tile-content,
-.tiles .tile.binary_sensor .tile-content {
-  display: none;
 }
 .tiles .tile-content .tile-value,
 .tiles .tile-content .tile-unit {
@@ -101,5 +110,4 @@ body,html {
     .tiles .tile-content .tile-value {
         font-size: 2.5em;
     }
-
 }

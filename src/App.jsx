@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-//import './App.css';
 import Tiles from './Tiles';
 import HaApi from './api/HaApi';
 
@@ -13,7 +11,7 @@ class App extends Component {
     };
 
     this.group_name = 'dashboard'
-    this.api = new HaApi('http://192.168.1.135:8123/api/');
+    this.api = new HaApi('http://192.168.1.195:8123/api/');
     this.refrehsData();
     this.api.subscribeSocket((message) => this.onMessage(message));
     this.api.startWebsocket();
@@ -33,6 +31,7 @@ class App extends Component {
   onMessage(message) {
     let data = JSON.parse(message.data);
     if (data && data.event && data.event.event_type === 'state_changed') {
+      console.log(data)
       if (this.entityIdShown(data.event.data.entity_id)) {
         this.refrehsData();
       }
@@ -41,7 +40,9 @@ class App extends Component {
 
   entityIdShown(entityId) {
     for (let i = 0; i < this.state.entities.length; i++) {
-      if(this.state.entities[i].entity_id === entityId) {
+      let entity = this.state.entities[i]
+      console.log(this.state.entities[i]);
+      if(entity && entity.entity_id === entityId) {
         return true;
       }
     }
@@ -52,20 +53,22 @@ class App extends Component {
   tileClicked(entity) {
     if (
         entity.entity_id.startsWith('switch.') ||
+        entity.entity_id.startsWith('input_boolean.') ||
         entity.entity_id.startsWith('light.')
     ) {
-      if (entity.state === 'off') {
-        this.api.turnOn(entity.entity_id);
-      } else {
-        this.api.turnOff(entity.entity_id);
-      }
+      this.api.toggle(entity.entity_id)
+      //if (entity.state === 'off') {
+      //  this.api.turnOn(entity.entity_id);
+      //} else {
+      //  this.api.turnOff(entity.entity_id);
+      //}
     }
   }
 
   render() {
     return (
       <div className="app">
-        <Tiles entities={this.state.entities} tileClicked={(entity) => this.tileClicked(entity)}/>
+        <Tiles entities={this.state.entities} tileClicked={(entity) => this.tileClicked(entity)} />
       </div>
     );
   }

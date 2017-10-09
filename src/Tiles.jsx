@@ -21,6 +21,12 @@ class Tiles extends Component {
     return (
       <div className="tiles">
         {tiles}
+        <div className="spacer-tile" />
+        <div className="spacer-tile" />
+        <div className="spacer-tile" />
+        <div className="spacer-tile" />
+        <div className="spacer-tile" />
+        <div className="spacer-tile" />
       </div>
     );
   }

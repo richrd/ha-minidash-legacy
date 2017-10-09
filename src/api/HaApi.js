@@ -18,7 +18,7 @@ class HaApi {
             console.log("Socket closed.", evt);
             console.log("CloseEvent.code:", CloseEvent.code);
             console.log("CloseEvent.reason:", CloseEvent.reason);
-            setTimeout(() => this.start_websocket(), 1000);
+            setTimeout(() => this.startWebsocket(), 1000);
         }
 
         // Subscribe to all Home Assistant events
@@ -34,7 +34,6 @@ class HaApi {
     }
 
     onSocketEvent(event) {
-      let data = JSON.parse(event.data);
       this.socket_subscribers.map((sub) => {sub(event)});
     }
 
@@ -94,6 +93,11 @@ class HaApi {
     async turnOff(entity_id) {
         const service = entity_id.split('.')[0];
         return HTTPWrapper.request(this.api_root + 'services/' + service + '/turn_off', {'entity_id': entity_id})
+    }
+
+    async toggle(entity_id) {
+        const service = entity_id.split('.')[0];
+        return HTTPWrapper.request(this.api_root + 'services/' + service + '/toggle', {'entity_id': entity_id})
     }
 
 }
